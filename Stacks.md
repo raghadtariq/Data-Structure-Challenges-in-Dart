@@ -5,42 +5,15 @@
 
 Sol:
 ```dart
-class Stack<T> {
-  List<T> _items = [];
-
-  void push(T item) {
-    _items.add(item);
-  }
-
-  T pop() {
-    if (_items.isEmpty) {
-      throw StateError('Cannot pop from an empty stack.');
-    }
-    return _items.removeLast();
-  }
-
-  bool get isEmpty => _items.isEmpty;
-}
-
-void reverseList(List<dynamic> inputList) {
-  Stack<dynamic> stack = Stack();
-
-  for (var item in inputList) {
-    stack.push(item);
-  }
-
-  print('Reversed List:');
-  while (!stack.isEmpty) {
-    print(stack.pop());
-  }
-}
-
 void main() {
-  List<int> originalList = [1, 2, 3, 4, 5];
-  print('Original List:');
-  originalList.forEach(print);
+  List<int> numbers = [1, 2, 3, 4, 5];
+  List<int> stack = [];
 
-  reverseList(originalList);
+  for (int i = numbers.length - 1; i >= 0; i--) {
+    stack.add(numbers[i]);
+  }
+
+  print(stack); 
 }
 ```
 -------------------------------------------------------------------------------------------------------
@@ -49,47 +22,28 @@ void main() {
 
 Sol:
 ```dart
-class Stack<T> {
-  List<T> _items = [];
+bool isBalanced(String input) {
+  int counter = 0;
 
-  void push(T item) {
-    _items.add(item);
-  }
+  for (int i = 0; i < input.length; i++) {
+    String char = input[i];
 
-  T pop() {
-    if (_items.isEmpty) {
-      throw StateError('Cannot pop from an empty stack.');
-    }
-    return _items.removeLast();
-  }
+    if (char == '(') {
+      counter++;
+    } else if (char == ')') {
+      counter--;
 
-  bool get isEmpty => _items.isEmpty;
-}
-
-bool areParenthesesBalanced(String input) {
-  Stack<String> stack = Stack();
-
-  for (var char in input.runes) {
-    if (String.fromCharCode(char) == '(') {
-      stack.push('(');
-    } else if (String.fromCharCode(char) == ')') {
-      if (stack.isEmpty) {
-        return false; // Unbalanced parentheses
-      } else {
-        stack.pop();
-      }
     }
   }
-
-  return stack.isEmpty;
+  return counter == 0;
 }
 
 void main() {
-  String balancedString = 'h((e))llo(world)()';
-  print('$balancedString - Balanced: ${areParenthesesBalanced(balancedString)}');
+  String str1 = "h((e))llo(world)()";
+  print(isBalanced(str1));  
 
-  String unbalancedString = '(hello world';
-  print('$unbalancedString - Balanced: ${areParenthesesBalanced(unbalancedString)}');
+  String str2 = "(hello world";
+  print(isBalanced(str2));  
 }
 
 ```
